@@ -1,0 +1,22 @@
+{
+    "name": "MIG.Main",
+    "rootNamespace": "MIG.Main",
+    "references": [
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:0585c4aedbed6b340be5f0449b887fb5",
+        "GUID:b516899003f71be42bf4074b8fdf45e5",
+        "GUID:5b55ad1884e803b45b5b39ee4daec6b3",
+        "GUID:a0e9af843cb46664c90f440136aaec4e",
+        "GUID:089d655cefe25af4189b8e6ee8fa6c7f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

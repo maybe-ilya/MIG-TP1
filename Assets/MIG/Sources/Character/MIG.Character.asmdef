@@ -1,0 +1,16 @@
+{
+    "name": "MIG.Character",
+    "rootNamespace": "MIG.Character",
+    "references": [
+        "GUID:0585c4aedbed6b340be5f0449b887fb5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

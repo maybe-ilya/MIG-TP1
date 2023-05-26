@@ -1,0 +1,18 @@
+{
+    "name": "MIG.Logging",
+    "rootNamespace": "MIG.Logging",
+    "references": [
+        "GUID:0585c4aedbed6b340be5f0449b887fb5",
+        "GUID:78c2c50d6a6d7f74b99af484fbe8deb5",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
