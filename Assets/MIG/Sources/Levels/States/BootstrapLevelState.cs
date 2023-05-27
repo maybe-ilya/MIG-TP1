@@ -6,11 +6,13 @@ namespace MIG.Levels
     {
         private readonly IPlayerService _playerService;
         private readonly ICharacterFactory _characterFactory;
+        private readonly ICharacterCameraFactory _characterCameraFactory;
         private readonly IPlayerStart _playerStart;
 
         public BootstrapLevelState(
             IPlayerService playerService,
             ICharacterFactory characterFactory,
+            ICharacterCameraFactory characterCameraFactory,
             IPlayerStart playerStart,
             StateMachine stateMachine,
             ILogService logService) :
@@ -18,6 +20,7 @@ namespace MIG.Levels
         {
             _playerService = playerService;
             _characterFactory = characterFactory;
+            _characterCameraFactory = characterCameraFactory;
             _playerStart = playerStart;
         }
 
@@ -28,6 +31,9 @@ namespace MIG.Levels
             var character = _characterFactory.CreateObject(playerPosition);
 
             player.ControlCharacter(character);
+
+            var camera = _characterCameraFactory.CreateObject();
+            camera.LookAt(character);
         }
     }
 }

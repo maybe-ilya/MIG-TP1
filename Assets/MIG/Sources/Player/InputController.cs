@@ -8,11 +8,14 @@ using static MIG.Player.GameControls;
 
 namespace MIG.Player
 {
-    public sealed class InputController : 
-        MonoBehaviour, 
-        IInputController, 
+    public sealed class InputController :
+        MonoBehaviour,
+        IInputController,
         ICombatActions
     {
+        private ILogService _logService;
+        private LogChannel _logChannel;
+        private IPlayer _ownerPlayer;
         private GameControls _gameControls;
 
         public event Action<Vector2> OnMove;
@@ -35,8 +38,15 @@ namespace MIG.Player
 
         private bool CanProcessInput => true;
 
-        public void Init()
+        public void Init(ILogService logService)
         {
+            _logService = logService;
+            _logChannel = "[INPUT]";
+        }
+
+        public void SetupInputForPlayer(IPlayer player)
+        {
+            _ownerPlayer = player;
             _gameControls = new GameControls();
             ClearCallbacks();
             BindCombatActions();
@@ -87,12 +97,14 @@ namespace MIG.Player
         void ICombatActions.OnMovement(InputAction.CallbackContext context)
         {
             var moveVector = CanProcessInput ? context.ReadValue<Vector2>() : Vector2.zero;
+            _logService.Info(_logChannel, $"Move = {moveVector}");
             OnMove?.Invoke(moveVector);
         }
 
         void ICombatActions.OnOrientation(InputAction.CallbackContext context)
         {
             var lookVector = CanProcessInput ? context.ReadValue<Vector2>() : Vector2.zero;
+            _logService.Info(_logChannel, $"Look = {lookVector}");
             OnLook?.Invoke(lookVector);
         }
 

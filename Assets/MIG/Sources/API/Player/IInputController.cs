@@ -5,6 +5,7 @@ namespace MIG.API
 {
     public interface IInputController
     {
+        void SetupInputForPlayer(IPlayer player);
         void SwitchToGameScheme();
         void SwitchToUIScheme();
 

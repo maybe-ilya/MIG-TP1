@@ -9,6 +9,8 @@ namespace MIG.Character
         [CheckObject]
         private CharacterMovement _characterMovement;
 
+        public GameObject GameObject => gameObject;
+
         public void SetupInputs(IInputController inputController)
         {
             inputController.OnMove += OnMove;
@@ -19,32 +21,28 @@ namespace MIG.Character
 
         public void OnGainControl()
         {
-            throw new System.NotImplementedException();
+            // TODO: –¿¡Œ“¿…
         }
 
         public void OnLoseControl()
         {
-            throw new System.NotImplementedException();
+            // TODO: –¿¡Œ“¿…
         }
 
-        private void OnMove(Vector2 moveVector)
-        {
+        private void OnMove(Vector2 moveVector) =>
             _characterMovement.ApplyMoveInput(moveVector);
-        }
 
-        private void OnLook(Vector2 lookVector)
-        {
+        private void OnLook(Vector2 lookVector) =>
             _characterMovement.ApplyLookInput(lookVector);
-        }
 
         private void OnFire()
         {
-            throw new System.NotImplementedException();
+            // TODO: –¿¡Œ“¿…
         }
 
         private void OnAltFire()
         {
-            throw new System.NotImplementedException();
+            // TODO: –¿¡Œ“¿…
         }
     }
 }

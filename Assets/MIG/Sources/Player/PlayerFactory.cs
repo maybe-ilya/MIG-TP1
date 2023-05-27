@@ -7,10 +7,14 @@ namespace MIG.Player
     {
         private const string PLAYER_NAME = "[Player Controller]";
         private const int DEFAULT_INDEX = 0;
+        private readonly ILogService _logService;
         private readonly IGameSettings _gameSettings;
 
-        public PlayerFactory(IGameSettings gameSettings)
+        public PlayerFactory(
+            ILogService logService,
+            IGameSettings gameSettings)
         {
+            _logService = logService;
             _gameSettings = gameSettings;
         }
 
@@ -24,8 +28,8 @@ namespace MIG.Player
             var inputCtrl = playerGO.GetComponent<InputController>();
             var player = playerGO.GetComponent<Player>();
 
+            inputCtrl.Init(_logService);
             player.Init(DEFAULT_INDEX, inputCtrl);
-            inputCtrl.Init();
 
             return player;
         }

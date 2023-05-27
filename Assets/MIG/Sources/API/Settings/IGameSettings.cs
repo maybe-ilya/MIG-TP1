@@ -6,5 +6,6 @@ namespace MIG.API
     {
         GameObject PlayerPrefab { get; }
         GameObject CharacterPrefab { get; }
+        GameObject CharacterCameraPrefab { get; }
     }
 }

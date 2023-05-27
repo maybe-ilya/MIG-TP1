@@ -31,7 +31,7 @@ namespace MIG.Player
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""f2045334-add5-47f3-af57-b45b44038939"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -40,7 +40,7 @@ namespace MIG.Player
                 },
                 {
                     ""name"": ""Orientation"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""66015e45-084b-4567-8f9c-087461870313"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -200,9 +200,9 @@ namespace MIG.Player
                 {
                     ""name"": """",
                     ""id"": ""53c86b3a-85ff-462e-95b7-6d75ccd164aa"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""MouseScreenOrientation"",
                     ""groups"": ""Default"",
                     ""action"": ""Orientation"",
                     ""isComposite"": false,
@@ -213,7 +213,7 @@ namespace MIG.Player
                     ""id"": ""ad871bcd-89c8-4ebf-85ca-2dee030f0a96"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""NormalizeVector2"",
                     ""groups"": ""Default"",
                     ""action"": ""Orientation"",
                     ""isComposite"": false,

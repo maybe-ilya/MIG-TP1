@@ -8,7 +8,7 @@ namespace MIG.Logging
     {
         public bool ShowTime;
         public string TimeFormat;
-        public LogLevel[] UnsupportedLevels;
+        public LogChannel[] UnsupportedChannels;
         public string NullArgMarker;
     }
 }

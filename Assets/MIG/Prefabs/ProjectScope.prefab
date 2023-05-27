@@ -88,10 +88,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d101fac8dd91a4aac330e069556a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logServiceSettings:
+  _defaultLogServiceSettings:
     ShowTime: 1
     TimeFormat: HH:mm:ss
-    UnsupportedLevels: 
+    UnsupportedChannels:
+    - _name: '[INPUT]'
+    NullArgMarker: <<missing>>
+  _editorLogServiceSettings:
+    ShowTime: 0
+    TimeFormat: 
+    UnsupportedChannels: []
     NullArgMarker: <<missing>>
 --- !u!1 &4378806824510120369
 GameObject:

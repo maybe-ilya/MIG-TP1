@@ -8,18 +8,16 @@ namespace MIG.Main
     internal sealed class LoggingRegistrator : ProjectRegistrator
     {
         [SerializeField]
-        private LogServiceSettings _logServiceSettings;
+        private LogServiceSettings _defaultLogServiceSettings;
+
+        [SerializeField]
+        private LogServiceSettings _editorLogServiceSettings;
 
         public override void Register(IContainerBuilder builder)
         {
-            builder.RegisterInstance(_logServiceSettings);
+            builder.RegisterInstance(ApplicationExtensions.IsEditor ? _editorLogServiceSettings : _defaultLogServiceSettings);
             builder.Register<UnityLogTarget>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<LogService>(Lifetime.Singleton).AsImplementedInterfaces();
-
-            builder.RegisterBuildCallback(container =>
-            {
-                container.Resolve<ILogService>();
-            });
         }
     }
 }

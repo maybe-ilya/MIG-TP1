@@ -36,7 +36,7 @@ namespace MIG.Logging
 
         private void SendMessage(LogChannel channel, LogLevel level, string message)
         {
-            if (!IsLogLevelSupported(level))
+            if (!IsLogChannelSupported(channel))
             {
                 return;
             }
@@ -45,8 +45,8 @@ namespace MIG.Logging
             SendMessageToTargets(level, message);
         }
 
-        private bool IsLogLevelSupported(LogLevel logLevel) =>
-            Array.IndexOf(_settings.UnsupportedLevels, logLevel) == -1;
+        private bool IsLogChannelSupported(LogChannel logChannel) =>
+            Array.IndexOf(_settings.UnsupportedChannels, logChannel) == -1;
 
         private void SendMessageToTargets(LogLevel level, string message)
         {

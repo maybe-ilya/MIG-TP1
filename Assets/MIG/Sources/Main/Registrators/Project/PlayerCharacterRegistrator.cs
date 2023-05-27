@@ -8,9 +8,10 @@ namespace MIG.Main
     {
         public override void Register(IContainerBuilder builder)
         {
-            builder.Register<PlayerFactory>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerFactory>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<CharacterFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<CharacterCameraFactory>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

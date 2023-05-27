@@ -15,6 +15,7 @@ namespace MIG.Player
         {
             Index = index;
             InputController = inputController;
+            InputController.SetupInputForPlayer(this);
         }
 
         public void ControlCharacter(ICharacter character)

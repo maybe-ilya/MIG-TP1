@@ -1,10 +1,13 @@
 using System;
+using UnityEngine;
 
 namespace MIG.API
 {
-    public readonly struct LogChannel : IEquatable<LogChannel>
+    [Serializable]
+    public struct LogChannel : IEquatable<LogChannel>
     {
-        private readonly string _name;
+        [SerializeField]
+        private string _name;
 
         public LogChannel(string name)
         {
@@ -24,10 +27,12 @@ namespace MIG.API
 
         public override string ToString() => _name;
 
-        public static bool operator ==(LogChannel left, LogChannel right) => 
+        public static bool operator ==(LogChannel left, LogChannel right) =>
             left.Equals(right);
 
-        public static bool operator !=(LogChannel left, LogChannel right) => 
+        public static bool operator !=(LogChannel left, LogChannel right) =>
             !left.Equals(right);
+
+        public static implicit operator LogChannel(string input) => new(input);
     }
 }

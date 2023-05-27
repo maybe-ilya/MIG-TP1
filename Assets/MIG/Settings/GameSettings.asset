@@ -16,3 +16,5 @@ MonoBehaviour:
     type: 3}
   _characterPrefab: {fileID: 380371486354111357, guid: 00fb66e992d03cf4cbec73d556d2c38a,
     type: 3}
+  _characterCameraPrefab: {fileID: 4013027193405989192, guid: fe5673c2623461243b5d9da5b4eb6517,
+    type: 3}
