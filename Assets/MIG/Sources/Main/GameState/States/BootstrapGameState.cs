@@ -1,4 +1,5 @@
 using MIG.API;
+using UnityEngine;
 
 namespace MIG.Main
 {
@@ -17,6 +18,10 @@ namespace MIG.Main
 
         public override void Enter()
         {
+            Application.targetFrameRate = 60;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+
             _playerService.CreateNewPlayer();
             _stateMachine.ChangeState<LaunchDemoSceneState>();
         }
