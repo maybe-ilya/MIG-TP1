@@ -1,12 +1,8 @@
-using UnityEngine;
-
 namespace MIG.API
 {
-    public interface ICharacter
+    public interface ICharacter : IGameEntityComponent
     {
-        GameObject GameObject { get; }
-        void SetupInputs(IInputController inputController);
-        void OnGainControl();
+        void OnGainControl(IInputController inputController);
         void OnLoseControl();
     }
 }

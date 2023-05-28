@@ -57,15 +57,6 @@ namespace MIG.Player
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Alt Fire"",
-                    ""type"": ""Button"",
-                    ""id"": ""8d57e8d8-335c-4bcb-ae31-263c9fe6ef3a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""739b15ff-1525-49db-abea-c7200ef42e39"",
@@ -238,28 +229,6 @@ namespace MIG.Player
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""157ca079-bd02-4cca-8b4b-26853a53adcc"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Alt Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""60b051ca-ac11-4410-abbf-de76d15f286c"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Alt Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -561,7 +530,6 @@ namespace MIG.Player
             m_Combat_Movement = m_Combat.FindAction("Movement", throwIfNotFound: true);
             m_Combat_Orientation = m_Combat.FindAction("Orientation", throwIfNotFound: true);
             m_Combat_Fire = m_Combat.FindAction("Fire", throwIfNotFound: true);
-            m_Combat_AltFire = m_Combat.FindAction("Alt Fire", throwIfNotFound: true);
             m_Combat_Pause = m_Combat.FindAction("Pause", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -635,7 +603,6 @@ namespace MIG.Player
         private readonly InputAction m_Combat_Movement;
         private readonly InputAction m_Combat_Orientation;
         private readonly InputAction m_Combat_Fire;
-        private readonly InputAction m_Combat_AltFire;
         private readonly InputAction m_Combat_Pause;
         public struct CombatActions
         {
@@ -644,7 +611,6 @@ namespace MIG.Player
             public InputAction @Movement => m_Wrapper.m_Combat_Movement;
             public InputAction @Orientation => m_Wrapper.m_Combat_Orientation;
             public InputAction @Fire => m_Wrapper.m_Combat_Fire;
-            public InputAction @AltFire => m_Wrapper.m_Combat_AltFire;
             public InputAction @Pause => m_Wrapper.m_Combat_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Combat; }
             public void Enable() { Get().Enable(); }
@@ -664,9 +630,6 @@ namespace MIG.Player
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
-                @AltFire.started += instance.OnAltFire;
-                @AltFire.performed += instance.OnAltFire;
-                @AltFire.canceled += instance.OnAltFire;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
@@ -683,9 +646,6 @@ namespace MIG.Player
                 @Fire.started -= instance.OnFire;
                 @Fire.performed -= instance.OnFire;
                 @Fire.canceled -= instance.OnFire;
-                @AltFire.started -= instance.OnAltFire;
-                @AltFire.performed -= instance.OnAltFire;
-                @AltFire.canceled -= instance.OnAltFire;
                 @Pause.started -= instance.OnPause;
                 @Pause.performed -= instance.OnPause;
                 @Pause.canceled -= instance.OnPause;
@@ -806,7 +766,6 @@ namespace MIG.Player
             void OnMovement(InputAction.CallbackContext context);
             void OnOrientation(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
-            void OnAltFire(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
         }
         public interface IUIActions

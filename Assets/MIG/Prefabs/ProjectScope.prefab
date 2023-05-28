@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef253c7b5a5f5cb4e81383e1488d179c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponSettings: {fileID: 11400000, guid: d9828b1bada110f4ab9ed72179bac3c7, type: 2}
 --- !u!1 &2469936861106960441
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +145,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameSettings: {fileID: 11400000, guid: 43d84c75cfab609418a3dedf2e9bc718, type: 2}
+--- !u!1 &4677679045410568978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4018022628195082474}
+  - component: {fileID: 3375442428489134434}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4018022628195082474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4677679045410568978}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1169158854790315839}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3375442428489134434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4677679045410568978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba5fc73dfb3b704f989ebf9c9b98474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyFactorySettings: {fileID: 11400000, guid: 292982c51299cfe42bb8892b05cb49f7,
+    type: 2}
 --- !u!1 &7611331332508738516
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,6 +268,7 @@ Transform:
   - {fileID: 3567296750618669228}
   - {fileID: 4863234538838052709}
   - {fileID: 2960129361247027793}
+  - {fileID: 4018022628195082474}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -244,4 +292,5 @@ MonoBehaviour:
   - {fileID: 49207219705583807}
   - {fileID: 8334975269310093045}
   - {fileID: 5415352832216547414}
+  - {fileID: 3375442428489134434}
   - {fileID: 972739071709587445}

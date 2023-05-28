@@ -2,5 +2,5 @@ using UnityEngine;
 
 namespace MIG.API
 {
-    public interface ICharacterFactory : IParameterizedFactory<ICharacter, Vector3> { }
+    public interface ICharacterFactory : IFactory<ICharacter, Vector3> { }
 }

@@ -2,7 +2,7 @@ using VContainer;
 
 namespace MIG.Main
 {
-    public class ProjectLifetimeScope : AbstractLifetimeScope<ProjectRegistrator>
+    public sealed class ProjectLifetimeScope : AbstractLifetimeScope<ProjectRegistrator>
     {
         protected override void Configure(IContainerBuilder builder)
         {

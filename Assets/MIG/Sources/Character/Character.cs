@@ -3,30 +3,59 @@ using UnityEngine;
 
 namespace MIG.Character
 {
-    public sealed class Character : MonoBehaviour, ICharacter
+    public sealed class Character :
+        MonoBehaviour,
+        ICharacter,
+        IDamagable,
+        IHealable
     {
         [SerializeField]
         [CheckObject]
         private CharacterMovement _characterMovement;
 
-        public GameObject GameObject => gameObject;
+        [SerializeField]
+        [CheckObject]
+        private HealthComponent _healthComponent;
 
-        public void SetupInputs(IInputController inputController)
+        public GameEntity GameEntity { get; private set; }
+
+        private IWeaponHandler _weaponHandler;
+        private IInputController _inputController;
+
+        public void Init(GameEntity gameEntity, IWeaponHandler weaponHandler)
         {
-            inputController.OnMove += OnMove;
-            inputController.OnLook += OnLook;
-            inputController.OnFire += OnFire;
-            inputController.OnAltFire += OnAltFire;
+            GameEntity = gameEntity;
+            _weaponHandler = weaponHandler;
+            _healthComponent.Init();
         }
 
-        public void OnGainControl()
+        public void OnGainControl(IInputController inputController)
         {
-            // TODO: –¿¡Œ“¿…
+            _inputController = inputController;
+            _inputController.OnMove += OnMove;
+            _inputController.OnLook += OnLook;
+            _inputController.OnFireStart += OnFireStart;
+            _inputController.OnFireStop += OnFireStop;
         }
 
         public void OnLoseControl()
         {
-            // TODO: –¿¡Œ“¿…
+            _inputController.OnMove -= OnMove;
+            _inputController.OnLook -= OnLook;
+            _inputController.OnFireStart -= OnFireStart;
+            _inputController.OnFireStop -= OnFireStop;
+            _inputController = null;
+        }
+
+        public bool ApplyDamage(int damage)
+        {
+            _healthComponent.LoseHealth(damage);
+            return _healthComponent.IsDead;
+        }
+
+        public void ApplyHeal(int amount)
+        {
+            _healthComponent.GainHealth(amount);
         }
 
         private void OnMove(Vector2 moveVector) =>
@@ -35,14 +64,14 @@ namespace MIG.Character
         private void OnLook(Vector2 lookVector) =>
             _characterMovement.ApplyLookInput(lookVector);
 
-        private void OnFire()
+        private void OnFireStart()
         {
-            // TODO: –¿¡Œ“¿…
+            _weaponHandler.StartFire();
         }
 
-        private void OnAltFire()
+        private void OnFireStop()
         {
-            // TODO: –¿¡Œ“¿…
+            _weaponHandler.StopFire();
         }
     }
 }

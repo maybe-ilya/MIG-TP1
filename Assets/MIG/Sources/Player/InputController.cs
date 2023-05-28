@@ -20,23 +20,11 @@ namespace MIG.Player
 
         public event Action<Vector2> OnMove;
         public event Action<Vector2> OnLook;
-        public event Action OnFire;
-        public event Action OnAltFire;
+        public event Action OnFireStart;
+        public event Action OnFireStop;
 
         private static InputSystemUIInputModule UIInputModule =>
             EventSystem.current.currentInputModule as InputSystemUIInputModule;
-
-        private bool IsCursorLocked
-        {
-            get { return !Cursor.visible && Cursor.lockState == CursorLockMode.Locked; }
-            set
-            {
-                Cursor.visible = !value;
-                Cursor.lockState = value ? CursorLockMode.Locked : CursorLockMode.None;
-            }
-        }
-
-        private bool CanProcessInput => true;
 
         public void Init(ILogService logService)
         {
@@ -70,8 +58,7 @@ namespace MIG.Player
         {
             OnMove = null;
             OnLook = null;
-            OnFire = null;
-            OnAltFire = null;
+            OnFireStart = null;
         }
 
         private void BindCombatActions()
@@ -96,36 +83,29 @@ namespace MIG.Player
 
         void ICombatActions.OnMovement(InputAction.CallbackContext context)
         {
-            var moveVector = CanProcessInput ? context.ReadValue<Vector2>() : Vector2.zero;
+            var moveVector = context.ReadValue<Vector2>();
             _logService.Info(_logChannel, $"Move = {moveVector}");
             OnMove?.Invoke(moveVector);
         }
 
         void ICombatActions.OnOrientation(InputAction.CallbackContext context)
         {
-            var lookVector = CanProcessInput ? context.ReadValue<Vector2>() : Vector2.zero;
+            var lookVector = context.ReadValue<Vector2>();
             _logService.Info(_logChannel, $"Look = {lookVector}");
             OnLook?.Invoke(lookVector);
         }
 
         void ICombatActions.OnFire(InputAction.CallbackContext context)
         {
-            if (!CanProcessInput || !context.performed)
+            switch (context.phase)
             {
-                return;
+                case InputActionPhase.Started:
+                    OnFireStart?.Invoke();
+                    break;
+                case InputActionPhase.Canceled:
+                    OnFireStop?.Invoke();
+                    break;
             }
-
-            OnFire?.Invoke();
-        }
-
-        void ICombatActions.OnAltFire(InputAction.CallbackContext context)
-        {
-            if (!CanProcessInput || !context.performed)
-            {
-                return;
-            }
-
-            OnAltFire?.Invoke();
         }
 
         void ICombatActions.OnPause(InputAction.CallbackContext context)

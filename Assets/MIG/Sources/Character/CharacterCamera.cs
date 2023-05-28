@@ -14,7 +14,7 @@ namespace MIG.Character
         {
             var source = new ConstraintSource
             {
-                sourceTransform = character.GameObject.transform,
+                sourceTransform = character.GameEntity.GameObject.transform,
                 weight = 1
             };
             _positionConstraint.AddSource(source);

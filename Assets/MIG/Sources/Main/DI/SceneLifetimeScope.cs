@@ -1,4 +1,4 @@
 namespace MIG.Main
 {
-    public class SceneLifetimeScope : AbstractLifetimeScope<SceneRegistrator> { }
+    public sealed class SceneLifetimeScope : AbstractLifetimeScope<SceneRegistrator> { }
 }

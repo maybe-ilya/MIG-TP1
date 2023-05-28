@@ -14,6 +14,7 @@ namespace MIG.Main
         {
             builder.Register<ISceneLoadService, SceneLoadService>(Lifetime.Singleton);
             builder.RegisterInstance<IGameSettings>(_gameSettings);
+            builder.Register<RandomService>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

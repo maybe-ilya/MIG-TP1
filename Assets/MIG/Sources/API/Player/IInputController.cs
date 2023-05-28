@@ -11,7 +11,7 @@ namespace MIG.API
 
         event Action<Vector2> OnMove;
         event Action<Vector2> OnLook;
-        event Action OnFire;
-        event Action OnAltFire;
+        event Action OnFireStart;
+        event Action OnFireStop;
     }
 }

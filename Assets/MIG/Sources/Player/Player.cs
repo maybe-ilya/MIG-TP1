@@ -22,8 +22,7 @@ namespace MIG.Player
         {
             ReleaseCharacter();
             Character = character;
-            Character.SetupInputs(InputController);
-            Character.OnGainControl();
+            Character.OnGainControl(InputController);
         }
 
         public void ReleaseCharacter()

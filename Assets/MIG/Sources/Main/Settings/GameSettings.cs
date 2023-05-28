@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MIG.Main
 {
-    [CreateAssetMenu(menuName = "MIG/Settings/Game Settings")]
+    [CreateAssetMenu(menuName = "MIG/Game Settings")]
     public sealed class GameSettings : ScriptableObject, IGameSettings
     {
         [SerializeField]

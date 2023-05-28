@@ -10,12 +10,12 @@ namespace MIG.Levels
         private readonly IPlayerStart _playerStart;
 
         public BootstrapLevelState(
+            StateMachine stateMachine,
+            ILogService logService,
             IPlayerService playerService,
             ICharacterFactory characterFactory,
             ICharacterCameraFactory characterCameraFactory,
-            IPlayerStart playerStart,
-            StateMachine stateMachine,
-            ILogService logService) :
+            IPlayerStart playerStart) :
             base(stateMachine, logService)
         {
             _playerService = playerService;
@@ -34,6 +34,8 @@ namespace MIG.Levels
 
             var camera = _characterCameraFactory.CreateObject();
             camera.LookAt(character);
+
+            _stateMachine.ChangeState<BattleLevelState>();
         }
     }
 }
