@@ -1,6 +1,9 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace MIG.Player
 {
@@ -16,16 +19,18 @@ namespace MIG.Player
         }
 #endif
 
-        [RuntimeInitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void Initialize()
         {
             InputSystem.RegisterProcessor<MouseScreenOrientationProcessor>();
         }
 
-        public override Vector2 Process(Vector2 value, InputControl control)
+        public override Vector2 Process(Vector2 input, InputControl control)
         {
-            var screenCenter = new Vector2(Screen.width, Screen.height) * 0.5f;
-            return (value - screenCenter).normalized;
+            var screenSize = new Vector2(Screen.width, Screen.height);
+            var screenCenter = screenSize * 0.5f;
+            var result = (input - screenCenter).normalized;
+            return result;
         }
     }
 }
