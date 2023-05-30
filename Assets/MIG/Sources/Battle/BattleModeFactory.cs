@@ -1,6 +1,5 @@
 using System;
 using MIG.API;
-using System.Collections.Generic;
 
 namespace MIG.Battle
 {
@@ -13,7 +12,7 @@ namespace MIG.Battle
         private readonly IRandomService _randomService;
         private readonly IPlayerService _playerService;
         private readonly IHordeModeEventsInvokerService _hordeModeEventsInvokerService;
-        private readonly IReadOnlyList<IEnemySpawner> _enemySpawners;
+        private readonly IEnemySpawnerCollection _enemySpawnerCollection;
 
         public BattleModeFactory(
             IEnemyFactory enemyFactory,
@@ -23,7 +22,7 @@ namespace MIG.Battle
             IRandomService randomService,
             IPlayerService playerService,
             IHordeModeEventsInvokerService hordeModeEventsInvokerService,
-            IReadOnlyList<IEnemySpawner> enemySpawners)
+            IEnemySpawnerCollection enemySpawnerCollection)
         {
             _enemyFactory = enemyFactory;
             _logService = logService;
@@ -32,7 +31,7 @@ namespace MIG.Battle
             _randomService = randomService;
             _playerService = playerService;
             _hordeModeEventsInvokerService = hordeModeEventsInvokerService;
-            _enemySpawners = enemySpawners;
+            _enemySpawnerCollection = enemySpawnerCollection;
         }
 
         public IBattleMode CreateObject(BattleModeType input)
@@ -49,7 +48,7 @@ namespace MIG.Battle
                     _playerService,
                     BattleLevelDependencies.LevelStateService,
                     _hordeModeEventsInvokerService,
-                    _enemySpawners),
+                    _enemySpawnerCollection.Spawners),
                 _ => throw new NotImplementedException($"Battle mode {input} is not implemented yet"),
             };
         }

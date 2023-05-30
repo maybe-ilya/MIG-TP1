@@ -3,6 +3,7 @@ using MIG.Battle;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace MIG.Main
 {
@@ -14,11 +15,11 @@ namespace MIG.Main
 
         [SerializeField]
         [CheckObject]
-        private EnemySpawner[] _spawners;
+        private EnemySpawnerCollection _enemySpawnerCollection;
 
         public override void Register(IContainerBuilder builder)
         {
-            builder.RegisterInstance<IReadOnlyList<IEnemySpawner>>(_spawners);
+            builder.RegisterComponent<IEnemySpawnerCollection>(_enemySpawnerCollection);
             builder.RegisterInstance(_hordeModeSettings);
             builder.Register<BattleService>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<BattleModeFactory>(Lifetime.Scoped).AsImplementedInterfaces();
