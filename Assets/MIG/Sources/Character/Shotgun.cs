@@ -6,11 +6,16 @@ namespace MIG.Character
 {
     public class Shotgun : AbstractWeapon
     {
-        [Header("Properties")]
+        [Header("Dependencies")]
         [SerializeField]
         [CheckObject]
         private Transform _shotPoint;
 
+        [SerializeField]
+        [CheckObject]
+        private Animator _animator;
+
+        [Header("Properties")]
         [SerializeField]
         private int _shotCount;
 
@@ -29,6 +34,9 @@ namespace MIG.Character
 
         [SerializeField]
         private int _attackDamage;
+
+        [SerializeField]
+        private AnimatorHash _attackTrigHash = "Attack";
 
         [Header("Debug")]
         [SerializeField]
@@ -59,6 +67,8 @@ namespace MIG.Character
 
                 DamageService.ApplyDamage(entity, _attackDamage);
             }
+
+            _animator.SetTrigger(_attackTrigHash);
         }
     }
 }

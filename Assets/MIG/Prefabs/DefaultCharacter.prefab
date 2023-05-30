@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7842162740122233442}
   - component: {fileID: 7214004431705073469}
   - component: {fileID: 6380411884969640059}
+  - component: {fileID: 1528632430494272448}
   m_Layer: 6
   m_Name: DefaultCharacter
   m_TagString: Untagged
@@ -54,6 +55,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterMovement: {fileID: 4899105222166986338}
   _healthComponent: {fileID: -8763474938592571793}
+  _animator: {fileID: 1528632430494272448}
+  _damagaTrigHash:
+    _name: Damage
+    _value: 375673178
 --- !u!114 &4899105222166986338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +181,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &1528632430494272448
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380371486354111357}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 303d7c6f09887214f8990fecfa3b4be7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4980416549419531465
 GameObject:
   m_ObjectHideFlags: 0

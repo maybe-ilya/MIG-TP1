@@ -1,14 +1,20 @@
 using MIG.API;
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
 
 namespace MIG.Battle
 {
     internal sealed class ZombieAttackComponent : MonoBehaviour
     {
+        [Header("Dependencies")]
         [SerializeField]
+        [CheckObject]
         private Transform _tracePoint;
 
+        [SerializeField]
+        [CheckObject]
+        private Animator _animator;
+
+        [Header("Properties")]
         [SerializeField]
         [Min(0.1f)]
         private float _traceRadius = 0.1f;
@@ -22,6 +28,9 @@ namespace MIG.Battle
 
         [SerializeField]
         private int _damage;
+
+        [SerializeField]
+        private AnimatorHash _attackTrigHash = "Attack";
 
         [Header("Debug")]
         [SerializeField]
@@ -48,6 +57,7 @@ namespace MIG.Battle
             }
 
             _damageService.ApplyDamage(entity, _damage);
+            _animator.SetTrigger(_attackTrigHash);
         }
 
 #if UNITY_EDITOR

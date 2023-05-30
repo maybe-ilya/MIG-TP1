@@ -17,6 +17,13 @@ namespace MIG.Character
         [CheckObject]
         private HealthComponent _healthComponent;
 
+        [SerializeField]
+        [CheckObject]
+        private Animator _animator;
+
+        [SerializeField]
+        private AnimatorHash _damagaTrigHash = "Damage";
+
         public GameEntity GameEntity { get; private set; }
 
         public bool CanApplyDamage => _healthComponent.IsAlive;
@@ -65,6 +72,7 @@ namespace MIG.Character
         {
             _healthComponent.LoseHealth(damage);
             InvokeHealthChangeEvent();
+            _animator.SetTrigger(_damagaTrigHash);
 
             var isDead = _healthComponent.IsDead;
             if (isDead)

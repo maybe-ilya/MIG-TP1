@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6288390027096865023}
   - component: {fileID: 3877821235665713945}
   - component: {fileID: 5810127766883785926}
+  - component: {fileID: 2589447272564488660}
   m_Layer: 7
   m_Name: Zombie
   m_TagString: Untagged
@@ -85,12 +86,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tracePoint: {fileID: 2114890277049961971}
+  _animator: {fileID: 2589447272564488660}
   _traceRadius: 0.7
   _traceDistance: 1
   _traceMask:
     serializedVersion: 2
     m_Bits: 64
   _damage: 15
+  _attackTrigHash:
+    _name: Attack
+    _value: 1080829965
   _gizmoColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!33 &8044845609389124426
 MeshFilter:
@@ -187,6 +192,27 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &2589447272564488660
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366695774960948785}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 14a92b9ddeb2aa14e9e588e93adb6a3c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5518503805388805444
 GameObject:
   m_ObjectHideFlags: 0
