@@ -8,10 +8,9 @@ namespace MIG.Main
         private readonly IPlayerService _playerService;
 
         public BootstrapGameState(
-            StateMachine stateMachine,
             ILogService logService,
             IPlayerService playerService)
-            : base(stateMachine, logService)
+            : base(logService)
         {
             _playerService = playerService;
         }
@@ -19,11 +18,14 @@ namespace MIG.Main
         public override void Enter()
         {
             Application.targetFrameRate = 60;
-            Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
+            if (ApplicationExtensions.IsDesktop)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+            }
 
             _playerService.CreateNewPlayer();
-            _stateMachine.ChangeState<LaunchDemoSceneState>();
+            StateMachine.ChangeState<MainMenuGameState>();
         }
     }
 }

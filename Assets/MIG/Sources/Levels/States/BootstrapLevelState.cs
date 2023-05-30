@@ -2,7 +2,7 @@ using MIG.API;
 
 namespace MIG.Levels
 {
-    internal sealed class BootstrapLevelState : AbstractLevelState
+    public sealed class BootstrapLevelState : AbstractLevelState
     {
         private readonly IPlayerService _playerService;
         private readonly ICharacterFactory _characterFactory;
@@ -10,13 +10,10 @@ namespace MIG.Levels
         private readonly IPlayerStart _playerStart;
 
         public BootstrapLevelState(
-            StateMachine stateMachine,
-            ILogService logService,
             IPlayerService playerService,
             ICharacterFactory characterFactory,
             ICharacterCameraFactory characterCameraFactory,
-            IPlayerStart playerStart) :
-            base(stateMachine, logService)
+            IPlayerStart playerStart)
         {
             _playerService = playerService;
             _characterFactory = characterFactory;
@@ -35,7 +32,7 @@ namespace MIG.Levels
             var camera = _characterCameraFactory.CreateObject();
             camera.LookAt(character);
 
-            _stateMachine.ChangeState<BattleLevelState>();
+            StateMachine.ChangeState<BattleLevelState>();
         }
     }
 }

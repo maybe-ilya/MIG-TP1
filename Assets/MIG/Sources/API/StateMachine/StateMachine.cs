@@ -14,9 +14,9 @@ namespace MIG.API
             _currentState = null;
         }
 
-        public void AddState<T>(T state) where T : IState
+        public void AddState(IState state)
         {
-            _states[typeof(T)] = state;
+            _states[state.GetType()] = state;
         }
 
         public void ChangeState<T>()

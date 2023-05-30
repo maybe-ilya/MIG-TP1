@@ -20,8 +20,10 @@ namespace MIG.Main
         {
             builder.RegisterInstance<IReadOnlyList<IEnemySpawner>>(_spawners);
             builder.RegisterInstance(_hordeModeSettings);
-            builder.Register<BattleService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<BattleModeFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<BattleService>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<BattleModeFactory>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<BattleLevelDependencies>(Lifetime.Transient).AsSelf();
+            builder.RegisterBuildCallback(container => container.Resolve<BattleLevelDependencies>());
         }
     }
 }

@@ -90,7 +90,7 @@ MonoBehaviour:
   _traceMask:
     serializedVersion: 2
     m_Bits: 64
-  _damage: 30
+  _damage: 15
   _gizmoColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!33 &8044845609389124426
 MeshFilter:

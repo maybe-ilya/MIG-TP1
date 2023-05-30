@@ -8,8 +8,12 @@ namespace MIG.Main
     {
         public override void Register(IContainerBuilder builder)
         {
-            builder.Register<LevelStateService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<LevelStateMachineFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<LevelStateService>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<AbstractLevelState, BootstrapLevelState>(Lifetime.Transient);
+            builder.Register<AbstractLevelState, BattleLevelState>(Lifetime.Transient);
+            builder.Register<AbstractLevelState, WinLevelState>(Lifetime.Transient);
+            builder.Register<AbstractLevelState, LoseLevelState>(Lifetime.Transient);
+
             builder.RegisterBuildCallback(container => container.Resolve<ILevelEntryPoint>().LaunchLevel());
         }
     }

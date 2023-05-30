@@ -12,6 +12,7 @@ namespace MIG.Battle
         private readonly IGameEntityKillNotifyService _gameEntityKillNotifyService;
         private readonly IRandomService _randomService;
         private readonly IPlayerService _playerService;
+        private readonly IHordeModeEventsInvokerService _hordeModeEventsInvokerService;
         private readonly IReadOnlyList<IEnemySpawner> _enemySpawners;
 
         public BattleModeFactory(
@@ -21,6 +22,7 @@ namespace MIG.Battle
             IGameEntityKillNotifyService gameEntityKillNotifyService,
             IRandomService randomService,
             IPlayerService playerService,
+            IHordeModeEventsInvokerService hordeModeEventsInvokerService,
             IReadOnlyList<IEnemySpawner> enemySpawners)
         {
             _enemyFactory = enemyFactory;
@@ -29,6 +31,7 @@ namespace MIG.Battle
             _gameEntityKillNotifyService = gameEntityKillNotifyService;
             _randomService = randomService;
             _playerService = playerService;
+            _hordeModeEventsInvokerService = hordeModeEventsInvokerService;
             _enemySpawners = enemySpawners;
         }
 
@@ -44,6 +47,8 @@ namespace MIG.Battle
                     _gameEntityKillNotifyService,
                     _randomService,
                     _playerService,
+                    BattleLevelDependencies.LevelStateService,
+                    _hordeModeEventsInvokerService,
                     _enemySpawners),
                 _ => throw new NotImplementedException($"Battle mode {input} is not implemented yet"),
             };

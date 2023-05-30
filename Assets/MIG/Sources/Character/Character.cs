@@ -19,14 +19,28 @@ namespace MIG.Character
 
         public GameEntity GameEntity { get; private set; }
 
+        public bool CanApplyDamage => _healthComponent.IsAlive;
+
         private IWeaponHandler _weaponHandler;
         private IInputController _inputController;
+        private ICharacterEventsInvokerService _characterEventsService;
+        private ILogService _logService;
+        private LogChannel _logChannel;
 
-        public void Init(GameEntity gameEntity, IWeaponHandler weaponHandler)
+        public void Init(
+            GameEntity gameEntity, 
+            IWeaponHandler weaponHandler, 
+            ICharacterEventsInvokerService characterEventsService,
+            ILogService logService)
         {
             GameEntity = gameEntity;
             _weaponHandler = weaponHandler;
+            _characterEventsService = characterEventsService;
+            _logService = logService;
+            _logChannel = "[CHARACTER]";
+
             _healthComponent.Init();
+            InvokeHealthChangeEvent();
         }
 
         public void OnGainControl(IInputController inputController)
@@ -50,12 +64,21 @@ namespace MIG.Character
         public bool ApplyDamage(int damage)
         {
             _healthComponent.LoseHealth(damage);
-            return _healthComponent.IsDead;
+            InvokeHealthChangeEvent();
+
+            var isDead = _healthComponent.IsDead;
+            if (isDead)
+            {
+                _characterEventsService.InvokeCharacterDeadEvent();
+            }
+
+            return isDead;
         }
 
         public void ApplyHeal(int amount)
         {
             _healthComponent.GainHealth(amount);
+            InvokeHealthChangeEvent();
         }
 
         private void OnMove(Vector2 moveVector) =>
@@ -72,6 +95,14 @@ namespace MIG.Character
         private void OnFireStop()
         {
             _weaponHandler.StopFire();
+        }
+
+        private void InvokeHealthChangeEvent()
+        {
+            var health = _healthComponent.Health;
+            var maxHealth = _healthComponent.MaxHealth;
+            _logService.Info(_logChannel, $"Health {health}/{maxHealth}");
+            _characterEventsService.UpdateCharacterHealth(health, maxHealth);
         }
     }
 }

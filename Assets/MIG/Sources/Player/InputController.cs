@@ -1,7 +1,6 @@
 using MIG.API;
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using static MIG.Player.GameControls;
@@ -15,6 +14,7 @@ namespace MIG.Player
     {
         private ILogService _logService;
         private LogChannel _logChannel;
+        private InputSystemUIInputModule _uiInputModule;
         private IPlayer _ownerPlayer;
         private GameControls _gameControls;
 
@@ -23,13 +23,11 @@ namespace MIG.Player
         public event Action OnFireStart;
         public event Action OnFireStop;
 
-        private static InputSystemUIInputModule UIInputModule =>
-            EventSystem.current.currentInputModule as InputSystemUIInputModule;
-
-        public void Init(ILogService logService)
+        public void Init(ILogService logService, InputSystemUIInputModule uIInputModule)
         {
             _logService = logService;
             _logChannel = "[INPUT]";
+            _uiInputModule = uIInputModule;
         }
 
         public void SetupInputForPlayer(IPlayer player)
@@ -38,8 +36,7 @@ namespace MIG.Player
             _gameControls = new GameControls();
             ClearCallbacks();
             BindCombatActions();
-            //BindUIActions();
-            SwitchToGameScheme();
+            BindUIActions();
         }
 
         public void SwitchToGameScheme()
@@ -68,17 +65,15 @@ namespace MIG.Player
 
         private void BindUIActions()
         {
-            var uiInputModule = UIInputModule;
-            uiInputModule.UnassignActions();
-
             var uiActions = _gameControls.UI;
+            _uiInputModule.UnassignActions();
 
-            uiInputModule.submit = uiActions.Submit.GetActionReference();
-            uiInputModule.cancel = uiActions.Cancel.GetActionReference();
-            uiInputModule.move = uiActions.Navigate.GetActionReference();
-            uiInputModule.leftClick = uiActions.Click.GetActionReference();
-            uiInputModule.point = uiActions.Cursor.GetActionReference();
-            uiInputModule.scrollWheel = uiActions.Scroll.GetActionReference();
+            _uiInputModule.submit = uiActions.Submit.GetActionReference();
+            _uiInputModule.cancel = uiActions.Cancel.GetActionReference();
+            _uiInputModule.move = uiActions.Navigate.GetActionReference();
+            _uiInputModule.leftClick = uiActions.Click.GetActionReference();
+            _uiInputModule.point = uiActions.Cursor.GetActionReference();
+            _uiInputModule.scrollWheel = uiActions.Scroll.GetActionReference();
         }
 
         void ICombatActions.OnMovement(InputAction.CallbackContext context)
@@ -106,11 +101,6 @@ namespace MIG.Player
                     OnFireStop?.Invoke();
                     break;
             }
-        }
-
-        void ICombatActions.OnPause(InputAction.CallbackContext context)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

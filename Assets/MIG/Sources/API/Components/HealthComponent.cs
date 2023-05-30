@@ -30,7 +30,7 @@ namespace MIG.API
 
         public void LoseHealth(int amount)
         {
-            _health = Math.Min(_health - amount, 0);
+            _health = Math.Max(_health - amount, 0);
         }
     }
 }

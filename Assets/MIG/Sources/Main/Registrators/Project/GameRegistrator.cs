@@ -8,10 +8,15 @@ namespace MIG.Main
     {
         public override void Register(IContainerBuilder builder)
         {
-            builder.Register<IGameStateMachineFactory, GameStateMachineFactory>(Lifetime.Singleton);
+            builder.Register<AbstractGameState, BootstrapGameState>(Lifetime.Transient);
+            builder.Register<AbstractGameState, MainMenuGameState>(Lifetime.Transient);
+            builder.Register<AbstractGameState, DemoBattleGameState>(Lifetime.Transient);
+            builder.Register<AbstractGameState, QuitGameState>(Lifetime.Transient);
+
             builder.Register<GameStateService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<GameEntityService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<DamageService>(Lifetime.Singleton).AsImplementedInterfaces();
+
             builder.RegisterBuildCallback(container => container.Resolve<IGameEntryPoint>().LaunchGame());
         }
     }

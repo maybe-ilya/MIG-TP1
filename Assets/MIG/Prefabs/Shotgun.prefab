@@ -154,7 +154,7 @@ MonoBehaviour:
   _weaponType: 1
   _ammoType: 1
   _ammoUsagePerShot: 1
-  _fireRateTime: 2
+  _fireRateTime: 1
   _shotPoint: {fileID: 2777032827698472454}
   _shotCount: 5
   _shotDistance: 5

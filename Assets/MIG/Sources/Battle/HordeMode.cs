@@ -1,6 +1,7 @@
 using MIG.API;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Rendering;
 
 namespace MIG.Battle
 {
@@ -12,14 +13,17 @@ namespace MIG.Battle
         private readonly IGameEntityKillNotifyService _entityKillNotify;
         private readonly IRandomService _randomService;
         private readonly IPlayerService _playerService;
+        private readonly ILevelStateService _levelStateService;
+        private readonly IHordeModeEventsInvokerService _hordeModeEventsInvokerService;
         private readonly IReadOnlyList<IEnemySpawner> _enemySpawners;
 
         private readonly LogChannel _logChannel;
-        private readonly HashSet<GameEntity> _spawnedEnemies;
+        private readonly HashSet<IEnemy> _spawnedEnemies;
         private int _currentWaveIndex = -1;
         private EnemyWaveData _currentWaveData;
         private int _lastUsedSpawnerIndex = -1;
         private int _enemySpawnCounter;
+        private int _enemyKilledCounter;
 
         private GameEntity PlayerCharacterEntity =>
             _playerService.GetPlayer().Character.GameEntity;
@@ -31,6 +35,8 @@ namespace MIG.Battle
             IGameEntityKillNotifyService entityKillNotify,
             IRandomService randomService,
             IPlayerService playerService,
+            ILevelStateService levelStateService,
+            IHordeModeEventsInvokerService hordeModeEventsInvokerService,
             IReadOnlyList<IEnemySpawner> enemySpawners)
         {
             _enemyFactory = enemyFactory;
@@ -39,10 +45,12 @@ namespace MIG.Battle
             _entityKillNotify = entityKillNotify;
             _randomService = randomService;
             _playerService = playerService;
+            _levelStateService = levelStateService;
+            _hordeModeEventsInvokerService = hordeModeEventsInvokerService;
             _enemySpawners = enemySpawners;
 
             _logChannel = "[HORDE MODE]";
-            _spawnedEnemies = new HashSet<GameEntity>();
+            _spawnedEnemies = new HashSet<IEnemy>();
         }
 
         public void Start()
@@ -70,6 +78,9 @@ namespace MIG.Battle
             else
             {
                 RemoveEnemyWithId(entityIndex);
+                _enemyKilledCounter++;
+                InvokeEnemiesCountChanged();
+
                 if (CanSpawnAnyone())
                 {
                     SpawnEnemy();
@@ -87,6 +98,7 @@ namespace MIG.Battle
             _currentWaveData = _settings.HordeWaves[_currentWaveIndex];
             _enemySpawnCounter = 0;
             _lastUsedSpawnerIndex = -1;
+            _enemyKilledCounter = 0;
 
             for (var iteration = 0; iteration < _currentWaveData.SimultaneousEnemiesCount; ++iteration)
             {
@@ -94,6 +106,8 @@ namespace MIG.Battle
             }
 
             _logService.Info(_logChannel, $"Starting wave {_currentWaveIndex + 1}");
+            _hordeModeEventsInvokerService.InvokeWaveStartEvent(_currentWaveIndex + 1, _settings.HordeWaves.Length);
+            InvokeEnemiesCountChanged();
         }
 
         private bool CanSpawnAnyone() =>
@@ -111,23 +125,28 @@ namespace MIG.Battle
             var spawner = _enemySpawners[_lastUsedSpawnerIndex];
             var enemyTypeToSpawn = _currentWaveData.EnemiesToSpawn[_enemySpawnCounter++];
             var enemy = _enemyFactory.CreateObject(enemyTypeToSpawn, spawner);
-            _spawnedEnemies.Add(enemy.GameEntity);
+            _spawnedEnemies.Add(enemy);
             _logService.Info(_logChannel, $"Spawned {enemyTypeToSpawn} enemy {enemy.GameEntity}");
         }
 
         private void RemoveEnemyWithId(int id) =>
-            _spawnedEnemies.RemoveWhere(item => item.Id == id);
+            _spawnedEnemies.RemoveWhere(item => item.GameEntity.Id == id);
 
         private void EnterPlayerFailState()
         {
-            // TODO: перенос машины состояний уровня
+            foreach (var enemy in _spawnedEnemies)
+            {
+                enemy.SetTarget(null);
+            }
+
             _logService.Info(_logChannel, "Player didn't survive horde");
+            _levelStateService.LoseLevel();
         }
 
         private void EnterPlayerWinState()
         {
-            // TODO: перенос машины состояний уровня
             _logService.Info(_logChannel, "Player victoriously crushed horde");
+            _levelStateService.WinLevel();
         }
 
         private void CheckBattleState()
@@ -148,6 +167,14 @@ namespace MIG.Battle
                 EnterPlayerWinState();
                 Stop();
             }
+        }
+
+        private void InvokeEnemiesCountChanged()
+        {
+            var waveEnemiesCount = _currentWaveData.EnemiesToSpawn.Length;
+            var waveEnemiesLeft = waveEnemiesCount - _enemyKilledCounter;
+
+            _hordeModeEventsInvokerService.InvokeWaveEnemiesCountChangedEvent(waveEnemiesLeft, waveEnemiesCount);
         }
     }
 }

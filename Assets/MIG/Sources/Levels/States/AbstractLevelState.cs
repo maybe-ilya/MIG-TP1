@@ -2,21 +2,17 @@ using MIG.API;
 
 namespace MIG.Levels
 {
-    internal abstract class AbstractLevelState : IState
+    public abstract class AbstractLevelState : IState
     {
-        protected readonly StateMachine _stateMachine;
-        protected readonly ILogService _logService;
+        protected StateMachine StateMachine { get; private set; }
 
-        public AbstractLevelState(
-            StateMachine stateMachine,
-            ILogService logService)
+        public void SetStateMachine(StateMachine stateMachine)
         {
-            _stateMachine = stateMachine;
-            _logService = logService;
+            StateMachine = stateMachine;
         }
 
         public virtual void Enter() { }
 
-        public void Exit() { }
+        public virtual void Exit() { }
     }
 }

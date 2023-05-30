@@ -1,21 +1,35 @@
 using MIG.API;
+using System.Collections.Generic;
 
 namespace MIG.Levels
 {
     public sealed class LevelStateService : ILevelStateService, ILevelEntryPoint
     {
-        private readonly ILevelStateMachineFactory _levelStateMachineFactory;
         private readonly StateMachine _levelStateMachine;
 
-        public LevelStateService(ILevelStateMachineFactory levelStateMachineFactory)
+        public LevelStateService(IReadOnlyList<AbstractLevelState> levelStates)
         {
-            _levelStateMachineFactory = levelStateMachineFactory;
-            _levelStateMachine = _levelStateMachineFactory.CreateObject();
+            _levelStateMachine = new StateMachine();
+            foreach (var state in levelStates)
+            {
+                state.SetStateMachine(_levelStateMachine);
+                _levelStateMachine.AddState(state);
+            }
         }
 
-        public void LaunchLevel()
+        void ILevelEntryPoint.LaunchLevel()
         {
             _levelStateMachine.ChangeState<BootstrapLevelState>();
+        }
+
+        public void WinLevel()
+        {
+            _levelStateMachine.ChangeState<WinLevelState>();
+        }
+
+        public void LoseLevel()
+        {
+            _levelStateMachine.ChangeState<LoseLevelState>();
         }
     }
 }

@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/MIG/Scenes/Bootstrapper.unity
     guid: be923215a68478840b03de5a9f9d0a48
   - enabled: 1
+    path: Assets/MIG/Scenes/Main Menu.unity
+    guid: 964e4c235b11f4c4a9b7cc2c2a1decbf
+  - enabled: 1
     path: Assets/MIG/Scenes/e1m1.unity
     guid: 6ceaca0084381834ca401e067900deb0
   m_configObjects:

@@ -1,5 +1,6 @@
 using MIG.API;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 
 namespace MIG.Player
 {
@@ -9,13 +10,16 @@ namespace MIG.Player
         private const int DEFAULT_INDEX = 0;
         private readonly ILogService _logService;
         private readonly IGameSettings _gameSettings;
+        private readonly IGlobalEventSystem _globalEventSystem;
 
         public PlayerFactory(
             ILogService logService,
-            IGameSettings gameSettings)
+            IGameSettings gameSettings,
+            IGlobalEventSystem globalEventSystem)
         {
             _logService = logService;
             _gameSettings = gameSettings;
+            _globalEventSystem = globalEventSystem;
         }
 
         public IPlayer CreateObject()
@@ -28,7 +32,7 @@ namespace MIG.Player
             var inputCtrl = playerGO.GetComponent<InputController>();
             var player = playerGO.GetComponent<Player>();
 
-            inputCtrl.Init(_logService);
+            inputCtrl.Init(_logService, _globalEventSystem.InputModule as InputSystemUIInputModule);
             player.Init(DEFAULT_INDEX, inputCtrl);
 
             return player;

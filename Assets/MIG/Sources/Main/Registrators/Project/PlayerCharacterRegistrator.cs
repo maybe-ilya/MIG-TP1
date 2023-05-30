@@ -20,6 +20,7 @@ namespace MIG.Main
             builder.Register<CharacterCameraFactory>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance<IWeaponSettings>(_weaponSettings);
             builder.Register<WeaponFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<CharacterEventsInvokerService>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

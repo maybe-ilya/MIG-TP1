@@ -18,6 +18,8 @@ namespace MIG.Battle
 
         protected bool IsTargetSet => Target != null;
 
+        public bool CanApplyDamage => _healthComponent.IsAlive;
+
         public bool ApplyDamage(int damage)
         {
             _healthComponent.LoseHealth(damage);

@@ -22,14 +22,19 @@ namespace MIG.Character
 
         private IWeaponFactory _weaponFactory;
         private ILogService _logService;
+        private ICharacterEventsInvokerService _characterEventsService;
         private readonly LogChannel _logChannel = "WEAPON";
 
         private bool IsAnyWeaponEquipped => _currentWeapon != null;
 
-        public void Init(IWeaponFactory weaponFactory, ILogService logService)
+        public void Init(
+            IWeaponFactory weaponFactory,
+            ILogService logService, 
+            ICharacterEventsInvokerService characterEventsService)
         {
             _weaponFactory = weaponFactory;
             _logService = logService;
+            _characterEventsService = characterEventsService;
         }
 
         public void AcquireWeapon(WeaponType weaponType)
@@ -65,12 +70,14 @@ namespace MIG.Character
         {
             var currentAmmo = _ammoResources[ammoType];
             _ammoResources[ammoType] = _ammoLimits[ammoType].Clamp(currentAmmo + amount);
+            InvokeAmmoChangeEvent(ammoType);
         }
 
         public void ChangeAmmoLimit(AmmoType ammoType, int newLimit)
         {
             _ammoLimits[ammoType] = new IntRange(0, newLimit);
             _ammoResources[ammoType] = _ammoLimits[ammoType].Max;
+            InvokeAmmoChangeEvent(ammoType);
         }
 
         public void StartFire()
@@ -110,6 +117,7 @@ namespace MIG.Character
             }
 
             _ammoResources[ammoType] = _ammoLimits[ammoType].Clamp(currentAmmo - amount);
+            InvokeAmmoChangeEvent(ammoType);
         }
 
         private void UnequipWeapon()
@@ -121,6 +129,11 @@ namespace MIG.Character
 
             _currentWeapon.OnEquip();
             _currentWeapon = null;
+        }
+
+        private void InvokeAmmoChangeEvent(AmmoType ammoType)
+        {
+            _characterEventsService.UpdateCharacterAmmo(ammoType, _ammoResources[ammoType], _ammoLimits[ammoType].Max);
         }
     }
 }

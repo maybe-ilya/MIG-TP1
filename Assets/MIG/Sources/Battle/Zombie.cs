@@ -72,7 +72,7 @@ namespace MIG.Battle
         {
             _currentAttackCooldown = Math.Max(0.0f, _currentAttackCooldown - deltaTime);
 
-            if (_currentAttackCooldown > float.Epsilon)
+            if (!IsTargetSet || _currentAttackCooldown > float.Epsilon)
             {
                 return;
             }
@@ -92,6 +92,7 @@ namespace MIG.Battle
             }
 
             _attackComponent.PerformAttack();
+            _currentAttackCooldown = _attackCooldown;
         }
 
 #if UNITY_EDITOR

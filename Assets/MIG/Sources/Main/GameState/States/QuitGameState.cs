@@ -8,10 +8,7 @@ namespace MIG.Main
 {
     internal sealed class QuitGameState : AbstractGameState
     {
-        public QuitGameState(
-            StateMachine stateMachine,
-            ILogService logService)
-            : base(stateMachine, logService) { }
+        public QuitGameState(ILogService logService) : base(logService) { }
 
         public override void Enter()
         {

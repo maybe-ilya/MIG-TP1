@@ -55,15 +55,6 @@ namespace MIG.Player
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""739b15ff-1525-49db-abea-c7200ef42e39"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -229,28 +220,6 @@ namespace MIG.Player
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""235754d3-a5c2-4165-8ad4-b47f71319ff9"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""03bf2cac-69c4-4241-b7da-b1cb6e965a49"",
-                    ""path"": ""<Gamepad>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -530,7 +499,6 @@ namespace MIG.Player
             m_Combat_Movement = m_Combat.FindAction("Movement", throwIfNotFound: true);
             m_Combat_Orientation = m_Combat.FindAction("Orientation", throwIfNotFound: true);
             m_Combat_Fire = m_Combat.FindAction("Fire", throwIfNotFound: true);
-            m_Combat_Pause = m_Combat.FindAction("Pause", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -603,7 +571,6 @@ namespace MIG.Player
         private readonly InputAction m_Combat_Movement;
         private readonly InputAction m_Combat_Orientation;
         private readonly InputAction m_Combat_Fire;
-        private readonly InputAction m_Combat_Pause;
         public struct CombatActions
         {
             private @GameControls m_Wrapper;
@@ -611,7 +578,6 @@ namespace MIG.Player
             public InputAction @Movement => m_Wrapper.m_Combat_Movement;
             public InputAction @Orientation => m_Wrapper.m_Combat_Orientation;
             public InputAction @Fire => m_Wrapper.m_Combat_Fire;
-            public InputAction @Pause => m_Wrapper.m_Combat_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Combat; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -630,9 +596,6 @@ namespace MIG.Player
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
-                @Pause.started += instance.OnPause;
-                @Pause.performed += instance.OnPause;
-                @Pause.canceled += instance.OnPause;
             }
 
             private void UnregisterCallbacks(ICombatActions instance)
@@ -646,9 +609,6 @@ namespace MIG.Player
                 @Fire.started -= instance.OnFire;
                 @Fire.performed -= instance.OnFire;
                 @Fire.canceled -= instance.OnFire;
-                @Pause.started -= instance.OnPause;
-                @Pause.performed -= instance.OnPause;
-                @Pause.canceled -= instance.OnPause;
             }
 
             public void RemoveCallbacks(ICombatActions instance)
@@ -766,7 +726,6 @@ namespace MIG.Player
             void OnMovement(InputAction.CallbackContext context);
             void OnOrientation(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
-            void OnPause(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

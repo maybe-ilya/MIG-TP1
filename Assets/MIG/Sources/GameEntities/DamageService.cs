@@ -1,5 +1,6 @@
 using MIG.API;
 using System;
+using System.Collections.Generic;
 
 namespace MIG.GameEntities
 {
@@ -30,6 +31,12 @@ namespace MIG.GameEntities
                 return;
             }
 
+            if (!damagable.CanApplyDamage)
+            {
+                _logService.Info(_logChannel, $"Can't damage entity {gameEntity} because it's already destroyed");
+                return;
+            }
+
             var isEntityKilled = damagable.ApplyDamage(damage);
 
             if (!isEntityKilled)
@@ -37,6 +44,7 @@ namespace MIG.GameEntities
                 return;
             }
 
+            _logService.Info(_logChannel, $"Entity {gameEntity} is killed");
             OnGameEntityKill?.Invoke(gameEntity.Id);
             _gameEntityService.DestroyEntity(gameEntity);
         }

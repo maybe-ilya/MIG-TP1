@@ -7,12 +7,11 @@
       "dependencies": {},
       "hash": "f2773f585e762480c835ac718b82b87cb111e500"
     },
-    "com.tayx.graphy": {
-      "version": "https://github.com/Tayx94/graphy.git",
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "7b634c383ae631e7f4efaf08235c2d829a7d3ecc"
+      "source": "builtin",
+      "dependencies": {}
     },
     "com.unity.ai.navigation": {
       "version": "1.1.3",

@@ -100,6 +100,55 @@ MonoBehaviour:
     TimeFormat: 
     UnsupportedChannels: []
     NullArgMarker: <<missing>>
+--- !u!1 &2853691329166244272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5877676745020662423}
+  - component: {fileID: 5630027000154354359}
+  m_Layer: 0
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5877676745020662423
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853691329166244272}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1169158854790315839}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5630027000154354359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853691329166244272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a9b9521dc227544a45b882251735b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _windowSettings: {fileID: 11400000, guid: 43538e225cbd0ff4680788d205e6fe0c, type: 2}
+  _canvasPrefab: {fileID: 2453605011720372804, guid: 9f558eb6580e68c47bcb2e5a6a3886cf,
+    type: 3}
+  _eventSystemPrefab: {fileID: 3054476056228524459, guid: b9d97ec7fef5fc247adb7a27249cd51b,
+    type: 3}
 --- !u!1 &4378806824510120369
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +318,7 @@ Transform:
   - {fileID: 4863234538838052709}
   - {fileID: 2960129361247027793}
   - {fileID: 4018022628195082474}
+  - {fileID: 5877676745020662423}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -293,4 +343,5 @@ MonoBehaviour:
   - {fileID: 8334975269310093045}
   - {fileID: 5415352832216547414}
   - {fileID: 3375442428489134434}
+  - {fileID: 5630027000154354359}
   - {fileID: 972739071709587445}

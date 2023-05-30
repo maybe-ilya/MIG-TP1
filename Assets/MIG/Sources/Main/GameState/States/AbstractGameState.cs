@@ -4,15 +4,17 @@ namespace MIG.Main
 {
     internal abstract class AbstractGameState : IState
     {
-        protected readonly StateMachine _stateMachine;
         protected readonly ILogService _logService;
+        protected StateMachine StateMachine { get; private set; }
 
-        public AbstractGameState(
-            StateMachine stateMachine,
-            ILogService logService)
+        public AbstractGameState(ILogService logService)
         {
-            _stateMachine = stateMachine;
             _logService = logService;
+        }
+
+        public void SetStateMachine(StateMachine stateMachine)
+        {
+            StateMachine = stateMachine;
         }
 
         public virtual void Enter() { }
